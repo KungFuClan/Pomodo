@@ -19,6 +19,7 @@ npm-debug.log
 client-react/components/*.js
 client-react.test/build
 !client-react.test/build/client-react/styles/
+.cert/
 
 # ops
 ops/hosts
