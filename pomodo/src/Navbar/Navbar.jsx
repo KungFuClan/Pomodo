@@ -3,7 +3,7 @@ import 'bulma';
 import React from 'react';
 import { toggleNavbarBurger } from './bulma.js';
 
-function Navbar(props) {
+export function Navbar(props) {
     return (
         <nav className="navbar" role="navigation" aria-label="main navigation">
             <div className="navbar-brand">
