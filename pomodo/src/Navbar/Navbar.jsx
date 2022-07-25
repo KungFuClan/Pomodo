@@ -33,9 +33,9 @@ export function Navbar(props) {
                         <button className="button is-primary">
                             <strong>Sign up</strong>
                         </button>
-                        <button className="button is-light">
+                        <a href="/login" role="button" className="button is-light">
                             Log in
-                        </button>
+                        </a>
                         </div>
                     </div>
                 </div>
