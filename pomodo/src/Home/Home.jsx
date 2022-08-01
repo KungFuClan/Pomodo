@@ -1,27 +1,23 @@
 import React from "react";
+import 'bulma';
+import { NowPlaying } from "../NowPlaying/NowPlaying";
+import { SpotifyWebPlayback } from "../SpotifyWebSDK/SpotifyWebPlayback";
 
 export function Home(props) {
+
     return (
         <>
-            <h1>Welcome to the home page!</h1>
-            <div>
-                <div id="loggedin">
-                </div>
+            <div className="section">
+                <h1 className="title is-1">Welcome to the home page!</h1>
             </div>
-
-        <script id="loggedin-template" type="text/x-handlebars-template">
-            <h1>Logged in as </h1>
-            <img id="avatar" width="200" src="" />
-            <dl>
-            <dt>Display name</dt><dd></dd>
-            <dt>Username</dt><dd></dd>
-            <dt>Email</dt><dd></dd>
-            <dt>Spotify URI</dt><dd><a href=""></a></dd>
-            <dt>Link</dt><dd><a href=""></a></dd>
-            <dt>Profile Image</dt><dd></dd>
-            </dl>
-            <p><a href="/">Log in again</a></p>
-        </script>
+            
+            <div className="section">
+                <NowPlaying />
+            </div>
+           
+           <div className="section">
+                <SpotifyWebPlayback />
+           </div>
         </>
     )
 } 

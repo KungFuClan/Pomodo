@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { useEffect } from "react"
 import SpotifyService from "../ApiServices/SpotifyService";
-import { Redirect } from 'react-router-dom';
 
 export function Login (props) {
 

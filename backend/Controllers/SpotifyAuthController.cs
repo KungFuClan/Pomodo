@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Net.Http.Headers;
 using backend.Clients;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -31,29 +32,18 @@ namespace backend.Controllers
             
         }
 
-        // GET api/<ValuesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet]
+        [Route("now-playing")]
+        public async Task<string> Get()
         {
-            return "value";
-        }
+            AuthenticationHeaderValue authHeader;
+            AuthenticationHeaderValue.TryParse(Request.Headers["Authentication"], out authHeader);
 
-        // POST api/<ValuesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+            string token = authHeader.Parameter;
 
-        // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            HttpResponseMessage response = await _spotifyApiClient.GetNowPlaying(token);
 
-        // DELETE api/<ValuesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return await response.Content.ReadAsStringAsync();
         }
     }
 }
