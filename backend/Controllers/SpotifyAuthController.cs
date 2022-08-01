@@ -38,13 +38,12 @@ namespace backend.Controllers
             AuthenticationHeaderValue.TryParse(Request.Headers["Authentication"], out AuthenticationHeaderValue? authHeader);
             string token = authHeader?.Parameter ?? "";
 
-            if(token is null)
+            if (String.Equals(token, "null") || String.Equals(token, "undefined"))
             {
-                return new UnauthorizedObjectResult(new { message = "Token is null" });
+                return new UnauthorizedObjectResult(new { message = "Token is not defined" });
             }
 
             HttpResponseMessage response = await _spotifyApiClient.GetNowPlaying(token);
-
             return Ok(await response.Content.ReadAsStringAsync());
         }
     }
