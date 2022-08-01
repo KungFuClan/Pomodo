@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "bulma": "^0.9.4",
-    "node-sass": "^7.0.1"
+    "node-sass": "^7.0.1",
+    "query-string": "^7.1.1"
   }
 }
