@@ -21,29 +21,31 @@ namespace backend.Controllers
         // GET: api/<SpotifyAuthController>/token
         [HttpGet]
         [Route("token")]
-        public async Task<string> Get([FromQuery] string code)
+        public async Task<IActionResult> Get([FromQuery] string code)
         {
             if(code == null)
-                throw new ArgumentNullException("code");
+                throw new ArgumentNullException(nameof(code));
 
             HttpResponseMessage response = await _spotifyApiClient.GetToken(code);
-
-            return await response.Content.ReadAsStringAsync();
+            return Ok(await response.Content.ReadAsStringAsync());
             
         }
 
         [HttpGet]
         [Route("now-playing")]
-        public async Task<string> Get()
+        public async Task<IActionResult> Get()
         {
-            AuthenticationHeaderValue authHeader;
-            AuthenticationHeaderValue.TryParse(Request.Headers["Authentication"], out authHeader);
+            AuthenticationHeaderValue.TryParse(Request.Headers["Authentication"], out AuthenticationHeaderValue? authHeader);
+            string token = authHeader?.Parameter ?? "";
 
-            string token = authHeader.Parameter;
+            if(token is null)
+            {
+                return new UnauthorizedObjectResult(new { message = "Token is null" });
+            }
 
             HttpResponseMessage response = await _spotifyApiClient.GetNowPlaying(token);
 
-            return await response.Content.ReadAsStringAsync();
+            return Ok(await response.Content.ReadAsStringAsync());
         }
     }
 }
