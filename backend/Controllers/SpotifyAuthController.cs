@@ -21,7 +21,7 @@ namespace backend.Controllers
         // GET: api/<SpotifyAuthController>/token
         [HttpGet]
         [Route("token")]
-        public async Task<IActionResult> Get([FromQuery] string code)
+        public async Task<IActionResult> GetToken([FromQuery] string code)
         {
             if(code == null)
                 throw new ArgumentNullException(nameof(code));
@@ -32,8 +32,19 @@ namespace backend.Controllers
         }
 
         [HttpGet]
+        [Route("refresh-token")]
+        public async Task<IActionResult> GetRefreshToken([FromQuery] string refreshToken)
+        {
+            if (refreshToken == null)
+                throw new ArgumentNullException(nameof(refreshToken));
+
+            HttpResponseMessage response = await _spotifyApiClient.RefreshToken(refreshToken);
+            return Ok(await response.Content.ReadAsStringAsync());
+        }
+
+        [HttpGet]
         [Route("now-playing")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetNowPlaying()
         {
             AuthenticationHeaderValue.TryParse(Request.Headers["Authentication"], out AuthenticationHeaderValue? authHeader);
             string token = authHeader?.Parameter ?? "";

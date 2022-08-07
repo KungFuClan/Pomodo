@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "query-string": "^7.1.1"
+  },
+  "devDependencies": {
+    "querystring": "^0.2.1"
   }
 }

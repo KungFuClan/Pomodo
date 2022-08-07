@@ -1,7 +1,7 @@
+import SpotifyData from "../Data/SpotifyData";
+import SpotifyService from "../ApiServices/SpotifyService";
 import { useEffect } from "react";
 import { useState } from "react";
-import SpotifyData from "../Data/SpotifyData";
-
 
 export function NowPlaying ({ nowPlayingData }) {
     
@@ -11,17 +11,9 @@ export function NowPlaying ({ nowPlayingData }) {
     const [songTitle, setSongTitle] = useState();
 
     useEffect(() => {
-        ( async () => {
-            const response = await fetch('https://localhost:5001/api/SpotifyAuth/now-playing', {
-                method: "GET",
-                headers: {
-                    "Authentication": "Basic " + SpotifyData.getAccessToken()
-                }
-            });
-
-            const nowPlaying = await response.json();
+        ( async () => { 
             
-            console.log(nowPlaying);
+            const nowPlaying = await SpotifyService.getNowPlaying();
 
             setPlaying(nowPlaying);
             setAlbumImageUrl(nowPlaying.item.album.images[1].url);

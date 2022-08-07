@@ -5,6 +5,12 @@ const spotifyTokenExpirationKey = "spotify-token-expiration";
 
 export default class SpotifyData {
 
+    static updateTokenData( {access_token, expires_in, refresh_token}) {
+        this.setAccessToken(access_token);
+        this.setTokenExpiration(expires_in);
+        this.setRefreshToken(refresh_token);
+    }
+
     static setAccessToken(token) {
         localStorage.setItem(spotifyAccessTokenKey, token);
     }
@@ -21,8 +27,9 @@ export default class SpotifyData {
         return localStorage.getItem(spotifyRefreshTokenKey);
     }
 
-    static setTokenExpiration(time) {
-        localStorage.setItem(spotifyTokenExpirationKey, time);
+    static setTokenExpiration(expiresIn) {
+        const expirationTime = Date.now() + expiresIn * 1000;
+        localStorage.setItem(spotifyTokenExpirationKey, expirationTime);
     }
     
     static getTokenExpiration() {

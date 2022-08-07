@@ -1,8 +1,9 @@
 import * as queryString from 'query-string';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import SpotifyService from '../ApiServices/SpotifyService';
+
 import SpotifyData from '../Data/SpotifyData';
+import SpotifyService from '../ApiServices/SpotifyService';
+import { useEffect } from 'react';
+import { useState } from 'react';
 
 export function SpotifyAuthCallback (props) {
 
@@ -14,6 +15,7 @@ export function SpotifyAuthCallback (props) {
     }, []);
 
     useEffect(() => {
+        
         if(queryParams.code === undefined) {
             return;
         }
@@ -31,9 +33,7 @@ export function SpotifyAuthCallback (props) {
             return;
         }
 
-        SpotifyData.setAccessToken(tokenResponse.access_token)
-        SpotifyData.setRefreshToken(tokenResponse.refresh_token);
-        SpotifyData.setTokenExpiration(tokenResponse.expires_in)
+        SpotifyData.updateTokenData(tokenResponse);
         window.location.href = "/";
     }, [tokenResponse]);
 
