@@ -1,6 +1,5 @@
 using backend.Clients;
 using backend.Settings;
-using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
